@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 void showDivider(){
@@ -36,6 +37,32 @@ string cleanTheTextEntered(string givenText){
     }
     return cleanedText;
 }
+
+void runReadAndWriteOfFile(string fileName){
+    ifstream readFromFile;
+    fstream writeToFile;
+
+    readFromFile.open(fileName);
+    writeToFile.open("results.txt",ios::app);
+
+    if(!readFromFile.is_open()){
+        cout << "Sorry unable to read from file. Please check if the file exists" << endl;
+        return;
+    }
+
+    if(!writeToFile.is_open()){
+        cout << "Sorry unable to append to file results.txt" << endl;
+        return;
+    }
+
+    string word;
+    while(readFromFile >> word){
+        cout << "it works" << endl;
+        writeToFile << word << endl;
+    }
+    readFromFile.close();
+    writeToFile.close();
+}
 void runPalindromeFromUserInput(){
     cout << "Palindrome Text Input" << endl;
     cout << "Enter your text: " << endl;
@@ -59,7 +86,8 @@ void runPalindromeFromFile(){
     cout << "Enter the file name and file type. Example: file.txt" << endl;
     cin >> fileName;
     cout << "You entered " << fileName << endl;
-
+    cout << "Reading the file from directory ... " << endl;
+    runReadAndWriteOfFile(fileName);
 }
 void showAppTitle(){
     string appTitle = "Palindrome Application";
