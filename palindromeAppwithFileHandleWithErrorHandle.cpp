@@ -56,10 +56,17 @@ void runReadAndWriteOfFile(string fileName){
     }
 
     string word;
-    while(readFromFile >> word){
-        cout << "it works" << endl;
-        writeToFile << word << endl;
+    string title = "PALINDROME READ FROM FILE - " + fileName;
+    writeToFile << title << endl;
+    string result;
+    while(getline(readFromFile,word)){
+        string cleanedText = cleanTheTextEntered(word);
+        string reversedText = reverseTheText(cleanedText);
+        string result = isPalindrome(cleanedText, reversedText) ? " is Palindrome" : " is not Palindrome";
+        cout << word << result << endl;
+        writeToFile << word << result << endl;
     }
+    cout << "Appending to File is successful. See results.txt for reference" << endl;
     readFromFile.close();
     writeToFile.close();
 }

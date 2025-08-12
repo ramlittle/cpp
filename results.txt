@@ -18,3 +18,78 @@ Stats
 Civic
 Deed
 Dad
+Madam
+Radar
+Level
+Refer
+Pop
+Noon
+Stats
+Civic
+Deed
+Dad
+PALINDROME READ FROM FILE - words.txt
+Madamis Palindrome
+Radaris Palindrome
+Levelis Palindrome
+Referis Palindrome
+Popis Palindrome
+Noonis Palindrome
+Statsis Palindrome
+Civicis Palindrome
+Deedis Palindrome
+Dadis Palindrome
+PALINDROME READ FROM FILE - words.txt
+Madam is Palindrome
+(*)DFpuke is not Palindrome
+Radar is Palindrome
+Ako*(); is not Palindrome
+Level is Palindrome
+NakoPOWS is not Palindrome
+Refer is Palindrome
+&*(LL is Palindrome
+Pop is Palindrome
+Noon is Palindrome
+Stats is Palindrome
+Civic is Palindrome
+Deed is Palindrome
+Dad is Palindrome
+PALINDROME READ FROM FILE - words.txt
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+ is Palindrome
+PALINDROME READ FROM FILE - words.txt
+Madam is Palindrome
+(*)DFpuke is not Palindrome
+Radar is Palindrome
+Ako*(); is not Palindrome
+Level is Palindrome
+NakoPOWS is not Palindrome
+Refer is Palindrome
+&*(LL is Palindrome
+Pop is Palindrome
+Ako burat*() jan is not Palindrome
+Noon is Palindrome
+Stats is Palindrome
+Civic is Palindrome
+Deed is Palindrome
+Dad is Palindrome
