@@ -93,3 +93,77 @@ Stats is Palindrome
 Civic is Palindrome
 Deed is Palindrome
 Dad is Palindrome
+Madam is not a valid year
+Radar is not a valid year
+Level is not a valid year
+Refer is not a valid year
+Pop is not a valid year
+Noon is not a valid year
+Stats is not a valid year
+Civic is not a valid year
+Deed is not a valid year
+Dad is not a valid year
+Madam is not a valid year
+Radar is not a valid year
+Level is not a valid year
+Refer is not a valid year
+Pop is not a valid year
+Noon is not a valid year
+Stats is not a valid year
+Civic is not a valid year
+Deed is not a valid year
+Dad is not a valid year
+Madam is not a valid year
+Radar is not a valid year
+Level is not a valid year
+Refer is not a valid year
+Pop is not a valid year
+Noon is not a valid year
+Stats is not a valid year
+Civic is not a valid year
+Deed is not a valid year
+Dad is not a valid year
+PALINDROME is not a valid year
+READ is not a valid year
+FROM is not a valid year
+FILE is not a valid year
+1968 is a leap year
+1971 is not a leap year
+2004 is a leap year
+2006 is not a leap year
+2012 is a leap year
+2010 is not a leap year
+1200 is a leap year
+1700 is not a leap year
+1600 is a leap year
+1800 is not a leap year
+2000 is a leap year
+1900 is not a leap year
+LEAP YEAR APP
+1968 is a leap year
+1971 is not a leap year
+2004 is a leap year
+2006 is not a leap year
+2012 is a leap year
+2010 is not a leap year
+1200 is a leap year
+1700 is not a leap year
+1600 is a leap year
+1800 is not a leap year
+2000 is a leap year
+1900 is not a leap year
+LEAP YEAR APP
+1968 is a leap year
+shogun is not a valid year
+1971 is not a leap year
+2004 is a leap year
+2006 is not a leap year
+23XXX is not a valid year
+2012 is a leap year
+2010 is not a leap year
+1200 is a leap year
+1700 is not a leap year
+1600 is a leap year
+1800 is not a leap year
+2000 is a leap year
+1900 is not a leap year

@@ -46,9 +46,49 @@ void runLeapYearFromUserInput(){
         cout << "The year " << year << " is not a leap year" << endl;
     }
 }
+void readAndWriteFile(string givenFile){
+    ifstream readFromFile;
+    fstream writeToFile;
+
+    readFromFile.open(givenFile);
+    writeToFile.open("results.txt",ios::app);
+
+    if(!readFromFile.is_open()){
+        cout << "Sorry unable to read from file given. Make sure the file name and type is correct" << endl;
+        return;
+    }
+
+    if(!writeToFile.is_open()){
+        cout << "Sorry unable to write to results.txt. You may troubleshoot now" << endl;
+        return;
+    }
+
+    string year;
+    writeToFile << "LEAP YEAR APP" << endl;
+    while(readFromFile >> year){
+        string result;
+        if(isValidYear(year)){
+            if(isLeapYear(stoi(year))){
+                result = year + " is a leap year";
+            }else{
+                result = year + " is not a leap year";
+            }
+        }else{
+            result = year + " is not a valid year";
+        }
+        cout << result << endl;
+        writeToFile << result << endl;
+    }
+    cout << "Writing to file is successful. Check results.txt for reference" << endl;
+    readFromFile.close();
+    writeToFile.close();
+}
 void runLeapYearFromFile(){
     cout << "LEAP YEAR: Reading from file..." << endl;
     cout << "Enter the file name and file type. Example: file.txt" << endl;
+    string file;
+    cin >> file;
+    readAndWriteFile(file);
 }
 void clearScreen(){
     system("cls");
