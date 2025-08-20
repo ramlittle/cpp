@@ -5,13 +5,57 @@
 #include <iostream>
 using namespace std;
 
+string convertDecimalToBinary(string givenDecimal){
+    int decimal = stoi(givenDecimal);
+    int bitValue = 1;
+    string binaryResult = "";
+
+    while(decimal >= bitValue){
+        bitValue*=2;
+    }
+    bitValue/=2;
+
+    while(bitValue!=0){
+        if(decimal >= bitValue){
+            binaryResult+='1';
+            decimal-=bitValue;
+        }else{
+            binaryResult+='0';
+        }
+        bitValue/=2;
+    }
+    return binaryResult;
+}
+bool isValidDecimal(string decimal){
+    int counter = 0;
+    for(int i=0;i<decimal.length();i++){
+        if(!isdigit(decimal[i])){
+            counter++;
+        }
+    }
+    if(counter > 0){
+        return false;
+    }
+    return true;
+}
+
 void runDecimalConversion(){
     string title = "DECIMAL CONVERSION";
     cout << title << endl;
+    string decimal;
+    cout << "Enter a number greater than zero" << endl;
+    cin >> decimal;
+    while(!isValidDecimal(decimal)){
+        cout << "That is not a valid integer. Try Again!" << endl;
+        cin >> decimal;
+    }
+    string binaryResult=convertDecimalToBinary(decimal);
+    cout << "BINARY RESULT : " << binaryResult << endl;
 }
 void runBinaryConversion(){
     string title = "BINARY CONVERSION";
     cout << title << endl;
+
 }
 void runOctalConversion(){
     string title = "OCTAL CONVERSION";
