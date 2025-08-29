@@ -5,6 +5,18 @@
 #include <iostream>
 using namespace std;
 
+int convertBinaryToDecimal(string givenBinary){
+    int decimalResult = 0;
+    int bitValue =1;
+    for(int i=givenBinary.length()-1;i>=0;i--){
+        if(givenBinary[i] == '1'){
+            decimalResult+=bitValue;
+        }
+        bitValue*=2;
+    }
+
+    return decimalResult;
+}
 string convertDecimalToBinary(string givenDecimal){
     int decimal = stoi(givenDecimal);
     int bitValue = 1;
@@ -26,6 +38,51 @@ string convertDecimalToBinary(string givenDecimal){
     }
     return binaryResult;
 }
+string convertBinaryToOctalOrHex(string givenBinary, string mode){
+    string result="";
+    int binaryReference = 0;
+    if(mode == "octal"){
+        binaryReference = 3;
+    }
+    if(mode == "hex"){
+        binaryReference = 4;
+    }
+    int quotientResult = givenBinary.length() / 3;
+    int moduloResult = givenBinary.length() % 3;
+    int arrayLength = quotientResult + moduloResult;
+    string arrayContainer[arrayLength];
+    int arrayElement = arrayLength-1;
+    for(int i = givenBinary.length()-1;i>=0;i--){
+        if(arrayContainer[arrayElement].length() >= binaryReference){
+            arrayElement--;
+            arrayContainer[arrayElement]+=givenBinary[i];
+        }else{
+            arrayContainer[arrayElement]+=givenBinary[i];
+        }
+    }
+    //reverse the characters in the array elements
+    for(int i=0;i<arrayLength;i++){
+        if(arrayContainer[i].length() != binaryReference){
+            int neededZeroes = binaryReference - arrayContainer[i].length();
+            for(int j=1;j<=neededZeroes;j++){
+                arrayContainer[i]+='0';
+            }
+        }
+        //reverse the contents
+        string temporary="";
+        for(int k=arrayLength;k>=0;k--){
+            temporary+=arrayContainer[i][k];
+        }
+        arrayContainer[i]=temporary;
+        //convert
+        int decimalResult = convertBinaryToDecimal(arrayContainer[i]);
+        char charResult = decimalResult+'0';
+        result+=charResult;
+
+    }
+    return result;
+}
+
 bool isValidDecimal(string decimal){
     int counter = 0;
     for(int i=0;i<decimal.length();i++){
@@ -38,6 +95,15 @@ bool isValidDecimal(string decimal){
     }
     return true;
 }
+bool isValidBinary(string givenBinary){
+    for(int i=0;i<givenBinary.length();i++){
+        if(isalpha(givenBinary[i]) || givenBinary[i]-'0' > 1){
+            return false;
+        }
+    }
+    return true;
+}
+
 
 void runDecimalConversion(){
     string title = "DECIMAL CONVERSION";
@@ -50,11 +116,23 @@ void runDecimalConversion(){
         cin >> decimal;
     }
     string binaryResult=convertDecimalToBinary(decimal);
+    string octalResult=convertBinaryToOctalOrHex(binaryResult,"octal");
+    string hexResult="";
+
     cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "OCTAL RESULT : " << octalResult << endl;
+    cout << "HEX RESULT : " << endl;
 }
 void runBinaryConversion(){
     string title = "BINARY CONVERSION";
     cout << title << endl;
+    string binary;
+    cout << "Enter your binary" << endl;
+    cin >> binary;
+    while(!isValidBinary(binary)){
+        cout << "That is not a valid binary. Try again!"<< endl;
+        cin >> binary;
+    }
 
 }
 void runOctalConversion(){
