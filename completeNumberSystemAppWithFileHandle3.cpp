@@ -5,6 +5,19 @@
 #include <iostream>
 using namespace std;
 
+int getIntegerEquivalent(char givenCharacter){
+    int result;
+    switch(givenCharacter){
+        case 'A': result = 10;break;
+        case 'B': result = 11;break;
+        case 'C': result = 12;break;
+        case 'D': result = 13;break;
+        case 'E': result = 14;break;
+        case 'F': result = 15;break;
+        default : result = givenCharacter - '0';
+    }
+    return result;
+}
 char getCharacterEquivalent(int givenInteger){
     char result;
     switch(givenInteger){
@@ -101,6 +114,32 @@ string convertBinaryToOctalOrHex(string givenBinary, string mode){
     }
     return result;
 }
+string convertOctalOrHexToBinary(string given,string mode){
+    string result="";
+    int binaryReference;
+    if(mode == "octal"){
+        binaryReference = 3;
+    }
+    if(mode == "hex"){
+        binaryReference = 4;
+    }
+    for(int i=0;i<given.length();i++){
+        string decimalValue = "";
+        decimalValue+=given[i];
+        string binaryValue = convertDecimalToBinary(decimalValue);
+        string temporary=binaryValue;
+        if(binaryValue.length()!=binaryReference){
+            int neededZeroes = binaryReference - binaryValue.length();
+            temporary="";
+            for(int j=1;j<=neededZeroes;j++){
+                temporary+='0';
+            }
+            temporary+=binaryValue;
+        }
+        result+=temporary;
+    }
+    return result;
+}
 bool isValidDecimal(string decimal){
     int counter = 0;
     for(int i=0;i<decimal.length();i++){
@@ -116,6 +155,29 @@ bool isValidDecimal(string decimal){
 bool isValidBinary(string givenBinary){
     for(int i=0;i<givenBinary.length();i++){
         if(isalpha(givenBinary[i]) || givenBinary[i]-'0' > 1){
+            return false;
+        }
+    }
+    return true;
+}
+bool isValidOctal(string givenOctal){
+    int octalValueLimit=7;
+    for(int i=0;i<givenOctal.length();i++){
+        if(isalpha(givenOctal[i])){
+           return false;
+        }
+        int integerValue = givenOctal[i] - '0';
+        if(integerValue > octalValueLimit){
+            return false;
+        }
+    }
+    return true;
+}
+bool isValidHex(string givenHex){
+    int hexValueLimit=15;
+    for(int i=0;i<givenHex.length();i++){
+        int integerValue = getIntegerEquivalent(givenHex[i]);
+        if(integerValue > 15){
             return false;
         }
     }
@@ -159,10 +221,27 @@ void runBinaryConversion(){
 void runOctalConversion(){
     string title = "OCTAL CONVERSION";
     cout << title << endl;
+    string octal;
+    cout << "Enter your octal value" << endl;
+    cin >> octal;
+    while(!isValidOctal(octal)){
+        cout << "That is not a valid Octal. Try Again!"<< endl;
+        cin >> octal;
+    }
+    string binaryResult = convertOctalOrHexToBinary(octal,"octal");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    string hexResult = convertBinaryToOctalOrHex(binaryResult,"hex");
+    cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "DECIMAL RESULT : " << decimalResult << endl;
+    cout << "HEX RESULT : " << hexResult << endl;
 }
 void runHexConversion(){
     string title = "HEX CONVERSION";
     cout << title << endl;
+    string hex;
+    cout << "Enter your hex" << endl;
+    cin >> hex;
+    isValidHex(hex) ? cout << "valid hex" << endl : cout << "invalid hex" << endl;
 }
 void showDivider(){
     cout << "================================" << endl;
