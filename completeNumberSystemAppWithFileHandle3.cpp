@@ -125,7 +125,8 @@ string convertOctalOrHexToBinary(string given,string mode){
     }
     for(int i=0;i<given.length();i++){
         string decimalValue = "";
-        decimalValue+=given[i];
+        int integerValue = getIntegerEquivalent(given[i]);
+        decimalValue+=to_string(integerValue);
         string binaryValue = convertDecimalToBinary(decimalValue);
         string temporary=binaryValue;
         if(binaryValue.length()!=binaryReference){
@@ -241,7 +242,16 @@ void runHexConversion(){
     string hex;
     cout << "Enter your hex" << endl;
     cin >> hex;
-    isValidHex(hex) ? cout << "valid hex" << endl : cout << "invalid hex" << endl;
+    while(!isValidHex(hex)){
+        cout << "That is not a valid Hex. Try again!" << endl;
+        cin >> hex;
+    }
+    string binaryResult = convertOctalOrHexToBinary(hex, "hex");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    string octalResult = convertBinaryToOctalOrHex(binaryResult, "octal");
+    cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "DECIMAL RESULT : " << decimalResult << endl;
+    cout << "OCTAL RESULT : " << octalResult << endl;
 }
 void showDivider(){
     cout << "================================" << endl;
