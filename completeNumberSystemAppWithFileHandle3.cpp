@@ -3,8 +3,34 @@
     purpose: MOCK EXAM EDPSE
 */
 #include <iostream>
+#include <fstream>
 using namespace std;
 
+struct ObjectLog{
+    string title;
+    string given;
+    int decimal;
+    string binary;
+    string octal;
+    string hex;
+};
+
+void saveResults(ObjectLog Log){
+    fstream appendToFile;
+    appendToFile.open("results.txt",ios::app);
+    if(!appendToFile.is_open()){
+        cout << "Sorry unable to append to results.txt. Make sure the file exists" <<  endl;
+        return;
+    }
+    appendToFile << "TITLE: " << Log.title << endl;
+    appendToFile << "GIVEN: " << Log.given << endl;
+    appendToFile << "DECIMAL: " << Log.decimal << endl;
+    appendToFile << "BINARY: " << Log.binary << endl;
+    appendToFile << "OCTAL: " << Log.octal << endl;
+    appendToFile << "HEX: " << Log.hex << endl;
+    cout << "Writing to file successful" << endl;
+    appendToFile.close();
+}
 int getIntegerEquivalent(char givenCharacter){
     int result;
     switch(givenCharacter){
@@ -201,6 +227,15 @@ void runDecimalConversion(){
     cout << "BINARY RESULT : " << binaryResult << endl;
     cout << "OCTAL RESULT : " << octalResult << endl;
     cout << "HEX RESULT : " << hexResult << endl;
+
+    ObjectLog Log;
+    Log.title = "DECIMAL CONVERSION";
+    Log.given = decimal;
+    Log.decimal = stoi(decimal);
+    Log.binary = binaryResult;
+    Log.octal = octalResult;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runBinaryConversion(){
     string title = "BINARY CONVERSION";
@@ -218,6 +253,14 @@ void runBinaryConversion(){
     cout << "DECIMAL RESULT : " << decimalResult << endl;
     cout << "OCTAL RESULT : " << octalResult << endl;
     cout << "HEX RESULT : " << hexResult << endl;
+    ObjectLog Log;
+    Log.title = "BINARY CONVERSION";
+    Log.given = binary;
+    Log.decimal = decimalResult;
+    Log.binary = binary;
+    Log.octal = octalResult;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runOctalConversion(){
     string title = "OCTAL CONVERSION";
@@ -235,6 +278,14 @@ void runOctalConversion(){
     cout << "BINARY RESULT : " << binaryResult << endl;
     cout << "DECIMAL RESULT : " << decimalResult << endl;
     cout << "HEX RESULT : " << hexResult << endl;
+    ObjectLog Log;
+    Log.title = "OCTAL CONVERSION";
+    Log.given = octal;
+    Log.decimal = decimalResult;
+    Log.binary = binaryResult;
+    Log.octal = octal;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runHexConversion(){
     string title = "HEX CONVERSION";
@@ -252,6 +303,14 @@ void runHexConversion(){
     cout << "BINARY RESULT : " << binaryResult << endl;
     cout << "DECIMAL RESULT : " << decimalResult << endl;
     cout << "OCTAL RESULT : " << octalResult << endl;
+    ObjectLog Log;
+    Log.title = "HEX CONVERSION";
+    Log.given = hex;
+    Log.decimal = decimalResult;
+    Log.binary = binaryResult;
+    Log.octal = octalResult;
+    Log.hex = hex;
+    saveResults(Log);
 }
 void showDivider(){
     cout << "================================" << endl;
