@@ -1,0 +1,21 @@
+Result of Palindrome check from file words.txt
+madam is Palindrome
+cloud is not Palindrome
+radar is Palindrome
+jump is not Palindrome
+level is Palindrome
+tiger is not Palindrome
+deed is Palindrome
+phone is not Palindrome
+civic is Palindrome
+space is not Palindrome
+refer is Palindrome
+book is not Palindrome
+pop is Palindrome
+music is not Palindrome
+noon is Palindrome
+river is not Palindrome
+kayak is Palindrome
+computer is not Palindrome
+rotor is Palindrome
+garden is not Palindrome
