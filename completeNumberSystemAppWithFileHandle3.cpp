@@ -3,8 +3,72 @@
     purpose: MOCK EXAM EDPSE
 */
 #include <iostream>
+#include <fstream>
 using namespace std;
 
+struct ObjectLog{
+    string title;
+    string given;
+    int decimal;
+    string binary;
+    string octal;
+    string hex;
+};
+
+void saveResults(ObjectLog Log){
+    fstream appendToFile;
+    appendToFile.open("results.txt",ios::app);
+    if(!appendToFile.is_open()){
+        cout << "Sorry unable to append to results.txt. Make sure the file exists" <<  endl;
+        return;
+    }
+    appendToFile << "TITLE: " << Log.title << endl;
+    appendToFile << "GIVEN: " << Log.given << endl;
+    appendToFile << "DECIMAL: " << Log.decimal << endl;
+    appendToFile << "BINARY: " << Log.binary << endl;
+    appendToFile << "OCTAL: " << Log.octal << endl;
+    appendToFile << "HEX: " << Log.hex << endl;
+    cout << "Writing to file successful" << endl;
+    appendToFile.close();
+}
+int getIntegerEquivalent(char givenCharacter){
+    int result;
+    switch(givenCharacter){
+        case 'A': result = 10;break;
+        case 'B': result = 11;break;
+        case 'C': result = 12;break;
+        case 'D': result = 13;break;
+        case 'E': result = 14;break;
+        case 'F': result = 15;break;
+        default : result = givenCharacter - '0';
+    }
+    return result;
+}
+char getCharacterEquivalent(int givenInteger){
+    char result;
+    switch(givenInteger){
+        case 10: result = 'A';break;
+        case 11: result = 'B';break;
+        case 12: result = 'C';break;
+        case 13: result = 'D';break;
+        case 14: result = 'E';break;
+        case 15: result = 'F';break;
+        default : result = givenInteger + '0';
+    }
+    return result;
+}
+int convertBinaryToDecimal(string givenBinary){
+    int decimalResult = 0;
+    int bitValue =1;
+    for(int i=givenBinary.length()-1;i>=0;i--){
+        if(givenBinary[i] == '1'){
+            decimalResult+=bitValue;
+        }
+        bitValue*=2;
+    }
+
+    return decimalResult;
+}
 string convertDecimalToBinary(string givenDecimal){
     int decimal = stoi(givenDecimal);
     int bitValue = 1;
@@ -26,6 +90,83 @@ string convertDecimalToBinary(string givenDecimal){
     }
     return binaryResult;
 }
+string convertBinaryToOctalOrHex(string givenBinary, string mode){
+    string result="";
+    int binaryReference = 0;
+    if(mode == "octal"){
+        binaryReference = 3;
+    }
+    if(mode == "hex"){
+        binaryReference = 4;
+    }
+    int quotientResult = givenBinary.length() / binaryReference;
+    int moduloResult = givenBinary.length() % binaryReference;
+    int arrayLength = quotientResult + moduloResult;
+    string arrayContainer[arrayLength];
+    int arrayElement = arrayLength-1;
+    for(int i = givenBinary.length()-1;i>=0;i--){
+        if(arrayContainer[arrayElement].length() >= binaryReference){
+            arrayElement--;
+            arrayContainer[arrayElement]+=givenBinary[i];
+        }else{
+            arrayContainer[arrayElement]+=givenBinary[i];
+        }
+    }
+    //reverse the characters in the array elements
+    for(int i=0;i<arrayLength;i++){
+        if(arrayContainer[i].length() != binaryReference){
+            int neededZeroes = binaryReference - arrayContainer[i].length();
+            for(int j=1;j<=neededZeroes;j++){
+                arrayContainer[i]+='0';
+            }
+        }
+        //reverse the contents
+        string temporary="";
+        for(int k=binaryReference;k>=0;k--){
+            temporary+=arrayContainer[i][k];
+        }
+        arrayContainer[i]=temporary;
+        //convert
+        char charResult;
+        int numericalValue=convertBinaryToDecimal(arrayContainer[i]);
+        int decimalResult = numericalValue;
+        if(mode == "octal"){
+            charResult = decimalResult+'0';
+        }
+        if(mode == "hex"){
+            charResult = getCharacterEquivalent(numericalValue);
+        }
+        result+=charResult;
+    }
+    return result;
+}
+string convertOctalOrHexToBinary(string given,string mode){
+    string result="";
+    int binaryReference;
+    if(mode == "octal"){
+        binaryReference = 3;
+    }
+    if(mode == "hex"){
+        binaryReference = 4;
+    }
+    for(int i=0;i<given.length();i++){
+        string decimalValue = "";
+        int integerValue = getIntegerEquivalent(given[i]);
+        decimalValue+=to_string(integerValue);
+        string binaryValue = convertDecimalToBinary(decimalValue);
+        string temporary=binaryValue;
+        if(binaryValue.length()!=binaryReference){
+            int neededZeroes = binaryReference - binaryValue.length();
+            temporary="";
+            for(int j=1;j<=neededZeroes;j++){
+                temporary+='0';
+            }
+            temporary+=binaryValue;
+        }
+        result+=temporary;
+    }
+    return result;
+}
 bool isValidDecimal(string decimal){
     int counter = 0;
     for(int i=0;i<decimal.length();i++){
@@ -38,7 +179,37 @@ bool isValidDecimal(string decimal){
     }
     return true;
 }
-
+bool isValidBinary(string givenBinary){
+    for(int i=0;i<givenBinary.length();i++){
+        if(isalpha(givenBinary[i]) || givenBinary[i]-'0' > 1){
+            return false;
+        }
+    }
+    return true;
+}
+bool isValidOctal(string givenOctal){
+    int octalValueLimit=7;
+    for(int i=0;i<givenOctal.length();i++){
+        if(isalpha(givenOctal[i])){
+           return false;
+        }
+        int integerValue = givenOctal[i] - '0';
+        if(integerValue > octalValueLimit){
+            return false;
+        }
+    }
+    return true;
+}
+bool isValidHex(string givenHex){
+    int hexValueLimit=15;
+    for(int i=0;i<givenHex.length();i++){
+        int integerValue = getIntegerEquivalent(givenHex[i]);
+        if(integerValue > 15){
+            return false;
+        }
+    }
+    return true;
+}
 void runDecimalConversion(){
     string title = "DECIMAL CONVERSION";
     cout << title << endl;
@@ -50,20 +221,96 @@ void runDecimalConversion(){
         cin >> decimal;
     }
     string binaryResult=convertDecimalToBinary(decimal);
+    string octalResult=convertBinaryToOctalOrHex(binaryResult,"octal");
+    string hexResult=convertBinaryToOctalOrHex(binaryResult,"hex");
+
     cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "OCTAL RESULT : " << octalResult << endl;
+    cout << "HEX RESULT : " << hexResult << endl;
+
+    ObjectLog Log;
+    Log.title = "DECIMAL CONVERSION";
+    Log.given = decimal;
+    Log.decimal = stoi(decimal);
+    Log.binary = binaryResult;
+    Log.octal = octalResult;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runBinaryConversion(){
     string title = "BINARY CONVERSION";
     cout << title << endl;
-
+    string binary;
+    cout << "Enter your binary" << endl;
+    cin >> binary;
+    while(!isValidBinary(binary)){
+        cout << "That is not a valid binary. Try again!"<< endl;
+        cin >> binary;
+    }
+    int decimalResult = convertBinaryToDecimal(binary);
+    string octalResult = convertBinaryToOctalOrHex(binary,"octal");
+    string hexResult = convertBinaryToOctalOrHex(binary,"hex");
+    cout << "DECIMAL RESULT : " << decimalResult << endl;
+    cout << "OCTAL RESULT : " << octalResult << endl;
+    cout << "HEX RESULT : " << hexResult << endl;
+    ObjectLog Log;
+    Log.title = "BINARY CONVERSION";
+    Log.given = binary;
+    Log.decimal = decimalResult;
+    Log.binary = binary;
+    Log.octal = octalResult;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runOctalConversion(){
     string title = "OCTAL CONVERSION";
     cout << title << endl;
+    string octal;
+    cout << "Enter your octal value" << endl;
+    cin >> octal;
+    while(!isValidOctal(octal)){
+        cout << "That is not a valid Octal. Try Again!"<< endl;
+        cin >> octal;
+    }
+    string binaryResult = convertOctalOrHexToBinary(octal,"octal");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    string hexResult = convertBinaryToOctalOrHex(binaryResult,"hex");
+    cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "DECIMAL RESULT : " << decimalResult << endl;
+    cout << "HEX RESULT : " << hexResult << endl;
+    ObjectLog Log;
+    Log.title = "OCTAL CONVERSION";
+    Log.given = octal;
+    Log.decimal = decimalResult;
+    Log.binary = binaryResult;
+    Log.octal = octal;
+    Log.hex = hexResult;
+    saveResults(Log);
 }
 void runHexConversion(){
     string title = "HEX CONVERSION";
     cout << title << endl;
+    string hex;
+    cout << "Enter your hex" << endl;
+    cin >> hex;
+    while(!isValidHex(hex)){
+        cout << "That is not a valid Hex. Try again!" << endl;
+        cin >> hex;
+    }
+    string binaryResult = convertOctalOrHexToBinary(hex, "hex");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    string octalResult = convertBinaryToOctalOrHex(binaryResult, "octal");
+    cout << "BINARY RESULT : " << binaryResult << endl;
+    cout << "DECIMAL RESULT : " << decimalResult << endl;
+    cout << "OCTAL RESULT : " << octalResult << endl;
+    ObjectLog Log;
+    Log.title = "HEX CONVERSION";
+    Log.given = hex;
+    Log.decimal = decimalResult;
+    Log.binary = binaryResult;
+    Log.octal = octalResult;
+    Log.hex = hex;
+    saveResults(Log);
 }
 void showDivider(){
     cout << "================================" << endl;
@@ -91,7 +338,6 @@ void showOptions(){
     cout << "4: run Hex Conversion" << endl;
     cout << "0: Exit" << endl;
 }
-
 void acceptUserOption(){
     char option;
     do{
@@ -110,24 +356,28 @@ void acceptUserOption(){
             clearScreen();
             showDivider();
             runDecimalConversion();
+            showDivider();
             showOptions();
             break;
         case '2':
             clearScreen();
             showDivider();
             runBinaryConversion();
+            showDivider();
             showOptions();
             break;
         case '3':
             clearScreen();
             showDivider();
             runOctalConversion();
+            showDivider();
             showOptions();
             break;
         case '4':
             clearScreen();
             showDivider();
             runHexConversion();
+            showDivider();
             showOptions();
             break;
         default:
