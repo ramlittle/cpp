@@ -27,10 +27,80 @@ void showOptions(){
     cout << "0: exit" << endl;
 }
 
+void processOnlyOneCharacter(){
+    cin.ignore(1000,'\n');
+}
+
+void clearScreen(){
+    system("cls");
+}
+
+void runDecimalConversion(){
+    cout << "DECIMAL CONVERSION" << endl;
+}
+
+void runBinaryConversion(){
+    cout << "BINARY CONVERSION" << endl;
+}
+
+void runOctalConversion(){
+    cout << "OCTAL CONVERSION" << endl;
+}
+
+void runHexConversion(){
+    cout << "HEX CONVERSION" << endl;
+}
 void acceptOptionSelected(){
     char option;
-    cin >> option;
-    cout << "You selected " << option << endl;
+    do{
+        cin >> option;
+        processOnlyOneCharacter();
+        while(isalpha(option)){
+            cout << "That is not a number. Try again!" << endl;
+            cin >> option;
+            processOnlyOneCharacter();
+        }
+        switch(option){
+        case '0':
+            clearScreen();
+            cout << "Thank you for using this application" << endl;
+            break;
+        case '1':
+            clearScreen();
+            showDivider();
+            runDecimalConversion();
+            showDivider();
+            showOptions();
+            break;
+        case '2':
+            clearScreen();
+            showDivider();
+            runBinaryConversion();
+            showDivider();
+            showOptions();
+            break;
+        case '3':
+            clearScreen();
+            showDivider();
+            runOctalConversion();
+            showDivider();
+            showOptions();
+            break;
+        case '4':
+            clearScreen();
+            showDivider();
+            runHexConversion();
+            showDivider();
+            showOptions();
+            break;
+        default:
+            cout << "That is not in the options!. Try again!"<<endl;
+            break;
+        }
+    }while(option!='0');
+
+
+
 }
 
 
