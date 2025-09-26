@@ -35,8 +35,141 @@ void clearScreen(){
     system("cls");
 }
 
+bool isDecimal(string givenDecimal){
+    //step 1: loop through given Decimal
+    for(int i=0;i<givenDecimal.length();i++){
+        if(isalpha(givenDecimal[i])){
+            return false;
+        }
+    }
+    //step 2: make sure given decimal is greater than 0
+    if(stoi(givenDecimal) < 0){
+        return false;
+    }
+    return true;
+}
+
+string convertDecimalToBinary(string givenDecimal){
+    //step 1: prepare variables
+    string binaryResult = "";
+    int bitValue = 1;
+    //step 2: convert the givenDecimal into integer
+    int decimal = stoi(givenDecimal);
+    //step 3: determine bitValue to use for comparison
+    while(bitValue<=decimal){
+        bitValue*=2;
+    }
+    //step 4: step down one bitValue for final comparison
+    bitValue/=2;
+
+    //step 5: loop through bitValue until it becomes 0
+    while(bitValue!=0){
+        //step 6: concatenate 1 to binaryResult and
+        //deduct bitValue from decimal when decimal
+        //is greater or equal to bitValue
+        if(decimal>=bitValue){
+            binaryResult+='1';
+            decimal-=bitValue;
+        }else{
+        //step 7: concatenate 0 if otherwise
+            binaryResult+='0';
+        }
+        //step 8: divide by 2 bitValue every iteration
+        bitValue/=2;
+    }
+    //step 9: return result
+    return binaryResult;
+}
+
+int convertBinaryToDecimal(string givenBinary){
+    //step 1: preare result
+    int decimalResult = 0;
+    int bitValue = 1;
+    //step 2: loop through the givenBinary in reverse
+    for(int i = givenBinary.length()-1;i>=0;i--){
+        if(givenBinary[i] == '1'){
+            decimalResult+=bitValue;
+        }
+        bitValue*=2;
+    }
+    //step 3: return result
+    return decimalResult;
+}
+string convertBinaryToOctalOrHex(string givenBinary, string mode){
+    //step 1: prepare variables
+    int limit = 0;
+    string result = "";
+    //step 2: determine limit size if for octal or hex
+    if(mode == "octal"){
+        limit = 3;
+    }
+    if(mode == "hex"){
+        limit = 4;
+    }
+    //step 3: determine arrayContainer with its size; this is where
+    //we'll split the bits
+    int quotientResult = givenBinary.length()/limit;
+    int moduloResult = givenBinary.length()%limit;
+    int arraySize = quotientResult+moduloResult;
+    string arrayContainer[arraySize];
+    int arrayIndex = arraySize-1;
+    //step 4: loop through the givenBinary in reverse
+    for(int i=givenBinary.length()-1;i>=0;i--){
+        //step 5: insert the bits into the elements of arrayContainer,
+        //when the element has reached its limited length, move to the next element
+        if(arrayContainer[arrayIndex].length() == limit){
+            arrayIndex--;
+            arrayContainer[arrayIndex]+=givenBinary[i];
+        }else{
+            arrayContainer[arrayIndex]+=givenBinary[i];
+        }
+    }
+
+    //step 6: loop through the result of the arrayContainer
+    for(int i =0 ;i<arraySize;i++){
+        //step 7: pad zeroes if the length of each arrayContainer
+        //element is not yet reached
+        if(arrayContainer[i].length()!=limit){
+            int neededZeroes = limit-arrayContainer[i].length();
+            for(int j=1;j<=neededZeroes;j++){
+                arrayContainer[i]+='0';
+            }
+        }
+        //step 8: rearrange each element to proper form so that we can
+        //convert the bits properly to decimal
+        //example: givenBinary = [100][100][100] will be rearranged to [001][001][001]
+        string temp="";
+        for(int k=arrayContainer[i].length()-1;k>=0;k--){
+            temp+=arrayContainer[i][k];
+        }
+        arrayContainer[i] = temp;
+        //step 9: convert each element of arrayContainer to decimal
+        int decimalValue = convertBinaryToDecimal(arrayContainer[i]);
+        //step 10: concatenate the decimalValue character to result
+        result+=decimalValue + '0';
+    }
+
+    //step 11: return result
+    return result;
+
+}
 void runDecimalConversion(){
     cout << "DECIMAL CONVERSION" << endl;
+    //step 1: accept decimal number
+    string decimal;
+    cout << "Enter your decimal number" << endl;
+    cin >> decimal;
+    //step 2: validate user input
+    while(!isDecimal(decimal)){
+        cout << "That is not a decimal number. Make sure it is a positive number as well!" << endl;
+        cin >> decimal;
+    }
+    //step 3: do converstions
+    string binaryResult = convertDecimalToBinary(decimal);
+    string octalResult = convertBinaryToOctalOrHex(binaryResult,"octal");
+    //step 4: show results
+    cout << "Binary Result: " << binaryResult << endl;
+    cout << "Octal Result: " << octalResult << endl;
 }
 
 void runBinaryConversion(){
