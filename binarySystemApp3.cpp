@@ -95,6 +95,22 @@ int convertBinaryToDecimal(string givenBinary){
     //step 3: return result
     return decimalResult;
 }
+char getCharacterEquivalent(int givenDecimal){
+    //step 1: prepare result variable
+    char result;
+    //step 2: switch through available choices
+    switch(givenDecimal){
+    case 10: result = 'A';break;
+    case 11: result = 'B';break;
+    case 12: result = 'C';break;
+    case 13: result = 'D';break;
+    case 14: result = 'E';break;
+    case 15: result = 'F';break;
+    default: result = givenDecimal+'0';break;
+    }
+    //step 3: return result;
+    return result;
+}
 string convertBinaryToOctalOrHex(string givenBinary, string mode){
     //step 1: prepare variables
     int limit = 0;
@@ -145,11 +161,13 @@ string convertBinaryToOctalOrHex(string givenBinary, string mode){
         arrayContainer[i] = temp;
         //step 9: convert each element of arrayContainer to decimal
         int decimalValue = convertBinaryToDecimal(arrayContainer[i]);
-        //step 10: concatenate the decimalValue character to result
-        result+=decimalValue + '0';
+        //step 10: convert to character equivalent
+        char characterValue = getCharacterEquivalent(decimalValue);
+        //step 11: concatenate the decimalValue character to result
+        result+=characterValue;
     }
 
-    //step 11: return result
+    //step 12: return result
     return result;
 
 }
@@ -167,9 +185,11 @@ void runDecimalConversion(){
     //step 3: do converstions
     string binaryResult = convertDecimalToBinary(decimal);
     string octalResult = convertBinaryToOctalOrHex(binaryResult,"octal");
+    string hexResult = convertBinaryToOctalOrHex(binaryResult,"hex");
     //step 4: show results
     cout << "Binary Result: " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
+    cout << "Hex Result: " << hexResult << endl;
 }
 
 void runBinaryConversion(){
