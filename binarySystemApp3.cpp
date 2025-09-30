@@ -207,18 +207,49 @@ bool isValidBinary(string givenBinary){
 }
 void runBinaryConversion(){
     cout << "BINARY CONVERSION" << endl;
+    //step 1: ask for user input
     cout << "Enter your binary" <<endl;
     string binary;
     cin >> binary;
+    //step 2: validate input
     while(!isValidBinary(binary)){
         cout << "This is not a valid binary. Try again" << endl;
         cin >> binary;
     }
-    cout << "it works" << endl;
-}
+    //step 3: do conversions
+    int decimalResult = convertBinaryToDecimal(binary);
+    string octalResult = convertBinaryToOctalOrHex(binary,"octal");
+    string hexResult = convertBinaryToOctalOrHex(binary,"hex");
+    //step 4: display results
+    cout << "Decimal Result: " << decimalResult << endl;
+    cout << "Octal Result: " << octalResult << endl;
+    cout << "Hex Result: " << hexResult << endl;
 
+}
+bool isValidOctal(string octal){
+    //step 1: loop through the given octal
+    for(int i=0;i<octal.length();i++){
+        //step 2: mark false if each character is greater than 7
+        int integerValue = octal[i] - '0';
+        if(integerValue > 7){
+            return false;
+        }
+    }
+    //step 3: return true if all goods
+    return true;
+}
 void runOctalConversion(){
     cout << "OCTAL CONVERSION" << endl;
+    //step 1: accept input
+    cout << "Enter your Octal" << endl;
+    string octal;
+    cin >> octal;
+    while(!isValidOctal(octal)){
+        cout << "That is not a valid Octal. Try again" << endl;
+        cin >> octal;
+    }
+    cout << "it works" << endl;
+
 }
 
 void runHexConversion(){
