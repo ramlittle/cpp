@@ -192,8 +192,29 @@ void runDecimalConversion(){
     cout << "Hex Result: " << hexResult << endl;
 }
 
+bool isValidBinary(string givenBinary){
+    //step 1: loop through the givenBinary
+    for(int i=0;i<givenBinary.length();i++){
+        //step 2: return false if a bit is not 1 or 0
+        if(givenBinary[i] != '1'){
+           if(givenBinary[i]!='0'){
+                return false;
+           }
+        }
+    }
+    //step 3: return true if all good
+    return true;
+}
 void runBinaryConversion(){
     cout << "BINARY CONVERSION" << endl;
+    cout << "Enter your binary" <<endl;
+    string binary;
+    cin >> binary;
+    while(!isValidBinary(binary)){
+        cout << "This is not a valid binary. Try again" << endl;
+        cin >> binary;
+    }
+    cout << "it works" << endl;
 }
 
 void runOctalConversion(){
