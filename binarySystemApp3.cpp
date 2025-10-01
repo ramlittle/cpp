@@ -238,17 +238,25 @@ bool isValidOctal(string octal){
     //step 3: return true if all goods
     return true;
 }
+
+string convertOctalOrHexToBinary(string givenOctal, "octal"){
+
+}
 void runOctalConversion(){
     cout << "OCTAL CONVERSION" << endl;
     //step 1: accept input
     cout << "Enter your Octal" << endl;
     string octal;
     cin >> octal;
+    //step 2: validate input
     while(!isValidOctal(octal)){
         cout << "That is not a valid Octal. Try again" << endl;
         cin >> octal;
     }
-    cout << "it works" << endl;
+    //step 3: do conversions
+    string binaryResult = convertOctalOrHexToBinary(octal,"octal");
+    //step 4: display results
+
 
 }
 
