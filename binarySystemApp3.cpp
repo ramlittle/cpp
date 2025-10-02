@@ -239,7 +239,38 @@ bool isValidOctal(string octal){
     return true;
 }
 
-string convertOctalOrHexToBinary(string givenOctal, "octal"){
+string convertOctalOrHexToBinary(string givenOctalOrHex, string mode){
+    //step 1: prepare variables
+    string finalResult="";
+    int limit = 0;
+    if(mode == "octal"){
+        limit = 3;
+    }
+    if(mode == "hex"){
+        limit = 4;
+    }
+    //step 2: loop through the given
+    for(int i=0;i<givenOctalOrHex.length();i++){
+        //step 3: convert each character to string
+        string stringValue="";
+        stringValue+=givenOctalOrHex[i];
+        //step 5: convert the string into binary
+        string binaryResult = convertDecimalToBinary(stringValue);
+        //step 6: pad leading zeroes if limit for each mode is not met
+        if(binaryResult.length() != limit){
+            int neededZeroes = limit-binaryResult.length();
+            string temporary = "";
+            for(int j=1;j<=neededZeroes;j++){
+                temporary+='0';
+            }
+            temporary+=binaryResult;
+            binaryResult=temporary;
+        }
+        //step 7: concatenate the binaryResult to finalResult
+        finalResult+=binaryResult;
+    }
+    //step 8: return  result
+    return finalResult;
 
 }
 void runOctalConversion(){
@@ -255,8 +286,12 @@ void runOctalConversion(){
     }
     //step 3: do conversions
     string binaryResult = convertOctalOrHexToBinary(octal,"octal");
+    string hexResult = convertBinaryToOctalOrHex(binaryResult,"hex");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
     //step 4: display results
-
+    cout << "Binary Result: " << binaryResult << endl;
+    cout << "Hex Result: " << hexResult << endl;
+    cout << "Decimal Result: " << decimalResult << endl;
 
 }
 
