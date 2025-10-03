@@ -111,6 +111,22 @@ char getCharacterEquivalent(int givenDecimal){
     //step 3: return result;
     return result;
 }
+int getDecimalEquivalent(char givenChar){
+    //step 1: prepare result variable
+    int result;
+    //step 2: switch through the available choices
+    switch(givenChar){
+        case 'A': result=10;break;
+        case 'B': result=11;break;
+        case 'C': result=12;break;
+        case 'D': result=13;break;
+        case 'E': result=14;break;
+        case 'F': result=15;break;
+        default: result=givenChar-'0';break;
+    }
+    //step 3: return result;
+    return result;
+}
 string convertBinaryToOctalOrHex(string givenBinary, string mode){
     //step 1: prepare variables
     int limit = 0;
@@ -251,12 +267,11 @@ string convertOctalOrHexToBinary(string givenOctalOrHex, string mode){
     }
     //step 2: loop through the given
     for(int i=0;i<givenOctalOrHex.length();i++){
-        //step 3: convert each character to string
-        string stringValue="";
-        stringValue+=givenOctalOrHex[i];
-        //step 5: convert the string into binary
-        string binaryResult = convertDecimalToBinary(stringValue);
-        //step 6: pad leading zeroes if limit for each mode is not met
+        //step 3: getDecimalEquivalent
+        int decimalEquivalent = getDecimalEquivalent(givenOctalOrHex[i]);
+        //step 4: convert the string into binary
+        string binaryResult = convertDecimalToBinary(to_string(decimalEquivalent));
+        //step 5: pad leading zeroes if limit for each mode is not met
         if(binaryResult.length() != limit){
             int neededZeroes = limit-binaryResult.length();
             string temporary = "";
@@ -266,10 +281,10 @@ string convertOctalOrHexToBinary(string givenOctalOrHex, string mode){
             temporary+=binaryResult;
             binaryResult=temporary;
         }
-        //step 7: concatenate the binaryResult to finalResult
+        //step 6: concatenate the binaryResult to finalResult
         finalResult+=binaryResult;
     }
-    //step 8: return  result
+    //step 7: return  result
     return finalResult;
 
 }
@@ -324,18 +339,42 @@ bool isValidHex(string givenHex){
     //step 3: return true if all goods
     return true;
 }
+string upperCaseTheCharacters(string givenString){
+    //step 1: prepare result variable
+    string result="";
+    //step 2: loop through the givenString
+    for(int i=0;i<givenString.length();i++){
+        //step 3: convert each character to uppercase
+        char upperCasedCharacter = toupper(givenString[i]);
+        result+=upperCasedCharacter;
+    }
+    //step 3: return result;
+    return result;
+}
 void runHexConversion(){
     cout << "HEX CONVERSION" << endl;
     //step 1: accept user input
     cout << "Enter your hex" << endl;
     string hex;
     cin >> hex;
-    //step 2: validate user input
-    while(!isValidHex(hex)){
+    //step 2: convert to uppercase the hex
+    string upperCasedHex=upperCaseTheCharacters(hex);
+    //step 3: validate user input
+    while(!isValidHex(upperCasedHex)){
         cout << "That is not a valid hex. Try again!" << endl;
         cin >> hex;
+        upperCasedHex=upperCaseTheCharacters(hex);
     }
-    cout << "it works" << endl;
+    //step 3: do conversions
+    string binaryResult = convertOctalOrHexToBinary(upperCasedHex,"hex");
+    string octalResult = convertBinaryToOctalOrHex(binaryResult,"octal");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    //step 4: display result
+    cout << "Binary Result: " << binaryResult << endl;
+    cout << "Octal Result: " << octalResult << endl;
+    cout << "Decimal Result: " << decimalResult << endl;
+
+
 }
 void acceptOptionSelected(){
     char option;
