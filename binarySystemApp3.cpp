@@ -295,8 +295,47 @@ void runOctalConversion(){
 
 }
 
+int getIntegerEquivalent(char givenCharacter){
+    //step 1: prepare result
+    int result;
+    //step 2: switch through the givenCharacter
+    switch(givenCharacter){
+        case 'A': result = 10;break;
+        case 'B':result = 11;break;
+        case 'C':result = 12;break;
+        case 'D':result = 13;break;
+        case 'E':result = 14;break;
+        case 'F':result = 15;break;
+        default : result = givenCharacter-'0';break;
+    }
+    //step 3: return result;
+    return result;
+}
+bool isValidHex(string givenHex){
+    //step 1: loop through the givenHex
+    for(int i =0;i<givenHex.length();i++){
+        //step 2: get each character its integer value
+        int integerValue = getIntegerEquivalent(givenHex[i]);
+        //step 3: return false if the value of the integer is greater than 15
+        if(integerValue > 15){
+            return false;
+        }
+    }
+    //step 3: return true if all goods
+    return true;
+}
 void runHexConversion(){
     cout << "HEX CONVERSION" << endl;
+    //step 1: accept user input
+    cout << "Enter your hex" << endl;
+    string hex;
+    cin >> hex;
+    //step 2: validate user input
+    while(!isValidHex(hex)){
+        cout << "That is not a valid hex. Try again!" << endl;
+        cin >> hex;
+    }
+    cout << "it works" << endl;
 }
 void acceptOptionSelected(){
     char option;
