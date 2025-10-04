@@ -197,3 +197,43 @@ DECIMAL: 2860
 BINARY: 101100101100
 OCTAL: 5454
 HEX: B2C
+==================================
+CONVERSION : Decimal
+GIVEN : 25
+DECIMAL : 0
+BINARY : 11001
+OCTAL : 031
+HEX : 19
+==================================
+==================================
+CONVERSION : Decimal
+GIVEN : 128
+DECIMAL : 128
+BINARY : 10000000
+OCTAL : 0200
+HEX : 80
+==================================
+==================================
+CONVERSION : Binary
+GIVEN : 1001001
+DECIMAL : 73
+BINARY : 1001001
+OCTAL : 111
+HEX : 0049
+==================================
+==================================
+CONVERSION : Octal
+GIVEN : 37
+DECIMAL : 31
+BINARY : 011111
+OCTAL : 37
+HEX : 01F
+==================================
+==================================
+CONVERSION : Hex
+GIVEN : 1bcd
+DECIMAL : 7117
+BINARY : 0001101111001101
+OCTAL : 015715
+HEX : 1bcd
+==================================

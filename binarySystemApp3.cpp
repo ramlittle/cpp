@@ -1,10 +1,46 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
+
+struct ObjectToSave{
+    string conversion;
+    string given;
+    int decimal;
+    string binary;
+    string octal;
+    string hex;
+};
 
 void showDivider(){
     const string divider = "==============================";
     cout << divider << endl;
 }
+
+void saveResult(ObjectToSave result){
+    //step 1: prepare fstream objects
+    fstream writeToFile;
+    writeToFile.open("results.txt",ios::app);
+    //step 2: check if the file is writable
+    if(!writeToFile.is_open()){
+        cout << "Sorry the file is not accessible at the moment" << endl;
+        return;
+    }
+    //step 3: write to file the result object details
+    writeToFile << "==================================" << endl;
+    writeToFile << "CONVERSION : " << result.conversion << endl;
+    writeToFile << "GIVEN : " << result.given << endl;
+    writeToFile << "DECIMAL : " << result.decimal << endl;
+    writeToFile << "BINARY : " << result.binary << endl;
+    writeToFile << "OCTAL : " << result.octal << endl;
+    writeToFile << "HEX : " << result.hex << endl;
+    writeToFile << "==================================" << endl;
+
+    //step 4: announce successul save
+    cout << "Save successful. See results file for details" << endl;
+    //step 5: close the file stream
+    writeToFile.close();
+}
+
 
 void showAppTitle(){
     const string title = "Simple Binary System";
@@ -206,6 +242,17 @@ void runDecimalConversion(){
     cout << "Binary Result: " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
     cout << "Hex Result: " << hexResult << endl;
+    //step 5: store results to object
+    ObjectToSave result;
+    result.conversion = "Decimal";
+    result.given = decimal;
+    result.decimal = stoi(decimal);
+    result.binary = binaryResult;
+    result.octal = octalResult;
+    result.hex = hexResult;
+    //step 6: save
+    saveResult(result);
+
 }
 
 bool isValidBinary(string givenBinary){
@@ -240,7 +287,16 @@ void runBinaryConversion(){
     cout << "Decimal Result: " << decimalResult << endl;
     cout << "Octal Result: " << octalResult << endl;
     cout << "Hex Result: " << hexResult << endl;
-
+    //step 5: store results to object
+    ObjectToSave result;
+    result.conversion = "Binary";
+    result.given = binary;
+    result.decimal = decimalResult;
+    result.binary = binary;
+    result.octal = octalResult;
+    result.hex = hexResult;
+    //step 6: save
+    saveResult(result);
 }
 bool isValidOctal(string octal){
     //step 1: loop through the given octal
@@ -307,7 +363,16 @@ void runOctalConversion(){
     cout << "Binary Result: " << binaryResult << endl;
     cout << "Hex Result: " << hexResult << endl;
     cout << "Decimal Result: " << decimalResult << endl;
-
+    //step 5: store results to object
+    ObjectToSave result;
+    result.conversion = "Octal";
+    result.given = octal;
+    result.decimal = decimalResult;
+    result.binary = binaryResult;
+    result.octal = octal;
+    result.hex = hexResult;
+    //step 6: save
+    saveResult(result);
 }
 
 int getIntegerEquivalent(char givenCharacter){
@@ -373,7 +438,16 @@ void runHexConversion(){
     cout << "Binary Result: " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
     cout << "Decimal Result: " << decimalResult << endl;
-
+    //step 5: store results to object
+    ObjectToSave result;
+    result.conversion = "Hex";
+    result.given = hex;
+    result.decimal = decimalResult;
+    result.binary = binaryResult;
+    result.octal = octalResult;
+    result.hex = hex;
+    //step 6: save
+    saveResult(result);
 
 }
 void acceptOptionSelected(){
