@@ -128,7 +128,7 @@ string convertBinaryToOctal(string givenBinary){
     string arrayContainer[arrayLength];
     int currentIndex = arrayLength-1;
     //step 3: loop through the givenBinary in reverse
-    for(int i=0;i<givenBinary.length();i++){
+    for(int i=givenBinary.length()-1;i>=0;i--){
         //step 4: concatenate to currentIndex of arrayContainer
         //the givenBinary bit until arrayContainer[currentIndex]
         //reaches octalLimit which is 3
@@ -164,7 +164,7 @@ string convertBinaryToOctal(string givenBinary){
         //step 10: convert the result of each element to decimal
         int decimalResult = convertBinaryToDecimal(arrayContainer[i]);
         //step 11: concatenate the result to octalResult
-        octalResult+=arrayContainer[i];
+        octalResult+=decimalResult+'0';
     }
     //step 12:  return octal Result
     return octalResult;
