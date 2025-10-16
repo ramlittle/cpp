@@ -99,6 +99,76 @@ string convertDecimalToBinary(string givenDecimal){
     //step 8: return binaryResult;
     return binaryResult;
 }
+int convertBinaryToDecimal(string givenBinary){
+    //step 0: prepare bitValue
+    int bitValue = 1;
+    //step 1: prepare decimalResult variable
+    int decimalResult = 0;
+    //step 2: loop through the givenBinary in reverse
+    for(int i = givenBinary.length()-1;i>=0;i--){
+        //step 3: add bitValue to decimalResult if givenBinary is equal to 1
+        if(givenBinary[i] == '1'){
+            decimalResult+=bitValue;
+        }
+        //step 4: multiply bitValue by 2 each iteration
+        bitValue*=2;
+    }
+    //step 5: return decimalResult;
+    return decimalResult;
+}
+string convertBinaryToOctal(string givenBinary){
+    //step 0: prepare octalResult
+    string octalResult = "";
+    //step 1: prepare limit
+    int octalLimit = 3;
+    //step 2: prepare arrayContainer by adding quotientResult and moduleResult
+    int quotientResult = givenBinary.length() / octalLimit;
+    int moduloResult = givenBinary.length() % octalLimit;
+    int arrayLength = quotientResult + moduloResult;
+    string arrayContainer[arrayLength];
+    int currentIndex = arrayLength-1;
+    //step 3: loop through the givenBinary in reverse
+    for(int i=0;i<givenBinary.length();i++){
+        //step 4: concatenate to currentIndex of arrayContainer
+        //the givenBinary bit until arrayContainer[currentIndex]
+        //reaches octalLimit which is 3
+        if(arrayContainer[currentIndex].length()!=octalLimit){
+            arrayContainer[currentIndex]+=givenBinary[i];
+        }else{
+            //step 5: move to the next index of arrayContainer
+            //when octal Limit is reached then concatenate givenBinary bit
+            currentIndex--;
+            arrayContainer[currentIndex]+=givenBinary[i];
+        }
+    }
+    //step 7: loop through the arrayContainer
+    for(int i=0;i<arrayLength;i++){
+        //step 8: make sure all elements in the arrayContainer has max length of 3
+        //if not append zeroes to the front
+        if(arrayContainer[i].length()!=octalLimit){
+            int neededZeroes = octalLimit - arrayContainer[i].length();
+            string temporaryZeroes = "";
+            for(int j = 1;j<=neededZeroes;j++){
+                temporaryZeroes+='0';
+            }
+            arrayContainer[i]+=temporaryZeroes;
+        }
+        //step 9: reverse the element bits to put them in order
+        //example: arrayContainer should be is [100]100][100]
+        //when reordered correctly it will be [001][001][001]
+        string temporaryBitOrder = "";
+        for(int k=octalLimit-1;k>=0;k--){
+            temporaryBitOrder += arrayContainer[i][k];
+        }
+        arrayContainer[i] = temporaryBitOrder;
+        //step 10: convert the result of each element to decimal
+        int decimalResult = convertBinaryToDecimal(arrayContainer[i]);
+        //step 11: concatenate the result to octalResult
+        octalResult+=arrayContainer[i];
+    }
+    //step 12:  return octal Result
+    return octalResult;
+}
 void runBinaryConversionLowToHigh(){
     string title = "Binary Conversion Low To High";
     cout << "Title: " << title << endl;
@@ -113,8 +183,10 @@ void runBinaryConversionLowToHigh(){
     }
     //step 3: do bin conversion
     string binaryResult = convertDecimalToBinary(decimal);
+    string octalResult = convertBinaryToOctal(binaryResult);
     //step 4: display binaryResult;
     cout << "Binary Result " << binaryResult << endl;
+    cout << "Octal Result: " << octalResult << endl;
 }
 
 void runBinaryConversionHighToLow(){
