@@ -169,6 +169,20 @@ string convertBinaryToOctal(string givenBinary){
     //step 12:  return octal Result
     return octalResult;
 }
+
+string sortLowToHigh(string givenOctal){
+    //step 1: bubble sort 654
+    for(int i=0;i<givenOctal.length();i++){
+        for(int j=0;j<givenOctal.length()-i-1;j++){
+            if(givenOctal[j]<=givenOctal[j+1]){
+                char temporary = givenOctal[j];
+                givenOctal[j] = givenOctal[j+1];
+                givenOctal[j+1] = temporary;
+            }
+        }
+    }
+    return givenOctal;
+}
 void runBinaryConversionLowToHigh(){
     string title = "Binary Conversion Low To High";
     cout << "Title: " << title << endl;
@@ -184,9 +198,11 @@ void runBinaryConversionLowToHigh(){
     //step 3: do bin conversion
     string binaryResult = convertDecimalToBinary(decimal);
     string octalResult = convertBinaryToOctal(binaryResult);
+    string lowToHighResult = sortLowToHigh(octalResult);
     //step 4: display binaryResult;
     cout << "Binary Result " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
+    cout << "Low to High Result: " << lowToHighResult << endl;
 }
 
 void runBinaryConversionHighToLow(){
