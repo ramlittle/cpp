@@ -174,7 +174,7 @@ string sortLowToHigh(string givenOctal){
     //step 1: bubble sort 654
     for(int i=0;i<givenOctal.length();i++){
         for(int j=0;j<givenOctal.length()-i-1;j++){
-            if(givenOctal[j]<=givenOctal[j+1]){
+            if(givenOctal[j]>=givenOctal[j+1]){
                 char temporary = givenOctal[j];
                 givenOctal[j] = givenOctal[j+1];
                 givenOctal[j+1] = temporary;
@@ -182,6 +182,34 @@ string sortLowToHigh(string givenOctal){
         }
     }
     return givenOctal;
+}
+
+string convertOctalToBinary(string givenOctal){
+    //step 0: prepare binaryResult and length limit per octalcharacte
+    string combinedBinaryResult = "";
+    int limit = 3;
+    //step 1: loop through the givenOctal
+    for(int i=0;i<givenOctal.length();i++){
+        //step 2: convert each character to string
+        string givenDecimal = "";
+        givenDecimal+=givenOctal[i];
+        //step 3: convert each character to binary
+        string binaryResult = convertDecimalToBinary(givenDecimal);
+        //step 4: pad leading zeroes if the binaryResult is not 3 (octal)
+        if(binaryResult.length()!=limit){
+            int neededZeroes = limit - binaryResult.length();
+            string temporary="";
+            for(int j=1;j<=neededZeroes;j++){
+                temporary+='0';
+            }
+            temporary+=binaryResult;
+            binaryResult = temporary;
+        }
+        //step 5: concatenate the binaryResult to combinedBinaryResult
+        combinedBinaryResult+=binaryResult;
+    }
+    //step 4: return combinedBinaryResult;
+    return combinedBinaryResult;
 }
 void runBinaryConversionLowToHigh(){
     string title = "Binary Conversion Low To High";
@@ -199,10 +227,14 @@ void runBinaryConversionLowToHigh(){
     string binaryResult = convertDecimalToBinary(decimal);
     string octalResult = convertBinaryToOctal(binaryResult);
     string lowToHighResult = sortLowToHigh(octalResult);
+    string binaryResultFromLowToHigh = convertOctalToBinary(lowToHighResult);
+    int decimalResult = convertBinaryToDecimal(binaryResultFromLowToHigh);
     //step 4: display binaryResult;
     cout << "Binary Result " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
     cout << "Low to High Result: " << lowToHighResult << endl;
+    cout << "Binary Result From Low To High: " << binaryResultFromLowToHigh << endl;
+    cout << "Decimal Result After Low To High: " << decimalResult << endl;
 }
 
 void runBinaryConversionHighToLow(){
