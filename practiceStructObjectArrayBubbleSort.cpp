@@ -5,7 +5,8 @@ struct MyObject{
     string name;
     int age;
 };
-
+int arraySize = 5;
+int numberedArrayList[5] = {1,2,3,4,5};
 void showDivider(){
     cout << "============================" << endl;
 }
@@ -184,6 +185,20 @@ string sortLowToHigh(string givenOctal){
     return givenOctal;
 }
 
+string sortHighToLow(string givenOctal){
+    //step 1: bubble sort 654
+    for(int i=0;i<givenOctal.length();i++){
+        for(int j=0;j<givenOctal.length()-i-1;j++){
+            if(givenOctal[j]<=givenOctal[j+1]){
+                char temporary = givenOctal[j];
+                givenOctal[j] = givenOctal[j+1];
+                givenOctal[j+1] = temporary;
+            }
+        }
+    }
+    return givenOctal;
+}
+
 string convertOctalToBinary(string givenOctal){
     //step 0: prepare binaryResult and length limit per octalcharacte
     string combinedBinaryResult = "";
@@ -211,7 +226,7 @@ string convertOctalToBinary(string givenOctal){
     //step 4: return combinedBinaryResult;
     return combinedBinaryResult;
 }
-void runBinaryConversionLowToHigh(){
+void runBinarySystemConversion(string mode){
     string title = "Binary Conversion Low To High";
     cout << "Title: " << title << endl;
     //step 1: get user input
@@ -226,15 +241,21 @@ void runBinaryConversionLowToHigh(){
     //step 3: do bin conversion
     string binaryResult = convertDecimalToBinary(decimal);
     string octalResult = convertBinaryToOctal(binaryResult);
-    string lowToHighResult = sortLowToHigh(octalResult);
-    string binaryResultFromLowToHigh = convertOctalToBinary(lowToHighResult);
+    string sortingResult;
+    if(mode == "low_to_high"){
+        sortingResult = sortLowToHigh(octalResult);
+    }
+    if(mode == "high_to_low"){
+        sortingResult = sortHighToLow(octalResult);
+    }
+    string binaryResultFromLowToHigh = convertOctalToBinary(sortingResult);
     int decimalResult = convertBinaryToDecimal(binaryResultFromLowToHigh);
     //step 4: display binaryResult;
     cout << "Binary Result " << binaryResult << endl;
     cout << "Octal Result: " << octalResult << endl;
-    cout << "Low to High Result: " << lowToHighResult << endl;
-    cout << "Binary Result From Low To High: " << binaryResultFromLowToHigh << endl;
-    cout << "Decimal Result After Low To High: " << decimalResult << endl;
+    cout << "Sorting Result : " << sortingResult << "(" << mode << ")" << endl;
+    cout << "Binary Result From " << mode << ": " << binaryResultFromLowToHigh << endl;
+    cout << "Decimal Result After Sorting: " << decimalResult << endl;
 }
 
 void runBinaryConversionHighToLow(){
@@ -246,7 +267,41 @@ void showOptions(){
     cout << "1: Practice Array Objects" << endl;
     cout << "2: Enter a decimal, system will convert to binary, convert to octal, sort the result lowest to highest, then display the decimal result" << endl;
     cout << "3: Enter a decimal, convert to binary, convert to octal, sort result highest to lowest, then display the result in decimal" << endl;
+    cout << "4: Show Number Array List" << endl;
+    cout << "5: Rotate Number Array List to left" << endl;
+    cout << "6: Rotate Number Array List to the right" << endl;
     cout << "0: Exit" << endl;
+}
+
+void showCurrentNumberedArrayList(int numberedArrayList[],int arraySize){
+    //step 1: loop through the list
+    for(int i = 0;i<arraySize;i++){
+        //step 2: display each element
+        cout << numberedArrayList[i] << " ";
+    }
+    cout << endl;
+}
+
+void rotateNumberedArrayListToTheLeft(int numberedArrayList[],int arraySize){
+    //step 1: put the first element to temporary container
+    int temporary = numberedArrayList[0];
+    //step 2: loop through the list
+    for(int i=0;i<arraySize;i++){
+        numberedArrayList[i] = numberedArrayList[i+1];
+    }
+    //step 3: put the temporary to the last index
+    numberedArrayList[arraySize-1]= temporary;
+}
+
+void rotateNumberedArrayListToTheRight(int numberedArrayList[],int arraySize){
+    //step 1: put the last element to temporary container
+    int temporary = numberedArrayList[arraySize-1];
+    //step 2: loop through the list
+    for(int i = arraySize-1;i>=0;i--){
+        numberedArrayList[i]=numberedArrayList[i-1];
+    }
+    //step 3: put the temporary to the first element
+    numberedArrayList[0]=temporary;
 }
 
 void acceptUserOption(){
@@ -273,14 +328,37 @@ void acceptUserOption(){
         case '2':
             clearScreen();
             showDivider();
-            runBinaryConversionLowToHigh();
+            runBinarySystemConversion("low_to_high");
             showDivider();
             showOptions();
             break;
         case '3':
             clearScreen();
             showDivider();
-            runBinaryConversionHighToLow();
+            runBinarySystemConversion("high_to_low");
+            showDivider();
+            showOptions();
+            break;
+        case '4':
+            clearScreen();
+            showDivider();
+            showCurrentNumberedArrayList(numberedArrayList,arraySize);
+            showDivider();
+            showOptions();
+            break;
+        case '5':
+            clearScreen();
+            showDivider();
+            rotateNumberedArrayListToTheLeft(numberedArrayList,arraySize);
+            showCurrentNumberedArrayList(numberedArrayList,arraySize);
+            showDivider();
+            showOptions();
+            break;
+        case '6':
+            clearScreen();
+            showDivider();
+            rotateNumberedArrayListToTheRight(numberedArrayList,arraySize);
+            showCurrentNumberedArrayList(numberedArrayList,arraySize);
             showDivider();
             showOptions();
             break;
