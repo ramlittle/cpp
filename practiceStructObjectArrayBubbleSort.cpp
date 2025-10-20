@@ -117,11 +117,35 @@ int convertBinaryToDecimal(string givenBinary){
     //step 5: return decimalResult;
     return decimalResult;
 }
-string convertBinaryToOctal(string givenBinary){
+
+char getCharacterEquivalent(int givenDecimal){
+    //step 1: prepare result
+    char charResult;
+    //step 2: switch through available options
+    switch(givenDecimal){
+        case 10: charResult = 'A';break;
+        case 11: charResult = 'B';break;
+        case 12: charResult = 'C';break;
+        case 13: charResult = 'D';break;
+        case 14: charResult = 'E';break;
+        case 15: charResult = 'F';break;
+        default: charResult = givenDecimal+'0';
+    }
+    //step 3: return result
+    return charResult;
+}
+string convertBinaryToOctalOrHex(string givenBinary,string mode){
     //step 0: prepare octalResult
     string octalResult = "";
+    string hexResult = "";
     //step 1: prepare limit
-    int octalLimit = 3;
+    int octalLimit = 0;
+    if(mode == "octal"){
+        octalLimit = 3;
+    }
+    if(mode == "hex"){
+        octalLimit = 4;
+    }
     //step 2: prepare arrayContainer by adding quotientResult and moduleResult
     int quotientResult = givenBinary.length() / octalLimit;
     int moduloResult = givenBinary.length() % octalLimit;
@@ -164,8 +188,10 @@ string convertBinaryToOctal(string givenBinary){
         arrayContainer[i] = temporaryBitOrder;
         //step 10: convert the result of each element to decimal
         int decimalResult = convertBinaryToDecimal(arrayContainer[i]);
+        //step 11: convert decimal to char
+        char charResult = getCharacterEquivalent(decimalResult);
         //step 11: concatenate the result to octalResult
-        octalResult+=decimalResult+'0';
+        octalResult+=charResult;
     }
     //step 12:  return octal Result
     return octalResult;
@@ -199,15 +225,40 @@ string sortHighToLow(string givenOctal){
     return givenOctal;
 }
 
-string convertOctalToBinary(string givenOctal){
+int getIntegerEquivalent(char givenChar){
+    //step 1: prepare result
+    int integerResult;
+    //step 2: switch through avaialble options
+    switch(givenChar){
+    case 'A': integerResult = 10;break;
+    case 'B': integerResult = 11;break;
+    case 'C': integerResult = 12;break;
+    case 'D': integerResult = 13;break;
+    case 'E': integerResult = 14;break;
+    case 'F': integerResult = 15;break;
+    default: integerResult = givenChar-'0';
+    }
+    //step 3: return result
+    return integerResult;
+}
+string convertOctalOrHexToBinary(string givenOctal,string mode){
     //step 0: prepare binaryResult and length limit per octalcharacte
     string combinedBinaryResult = "";
-    int limit = 3;
+    int limit = 0;
+    if(mode == "octal"){
+        limit = 3;
+    }
+    if(mode == "hex"){
+        limit =4;
+    }
     //step 1: loop through the givenOctal
     for(int i=0;i<givenOctal.length();i++){
+        //step 1b: getIntegerEquivalentdd
+        int integerResult = getIntegerEquivalent(givenOctal[i]);
         //step 2: convert each character to string
         string givenDecimal = "";
-        givenDecimal+=givenOctal[i];
+        //givenDecimal+=givenOctal[i];
+        givenDecimal+=to_string(integerResult);
         //step 3: convert each character to binary
         string binaryResult = convertDecimalToBinary(givenDecimal);
         //step 4: pad leading zeroes if the binaryResult is not 3 (octal)
@@ -240,7 +291,7 @@ void runBinarySystemConversion(string mode){
     }
     //step 3: do bin conversion
     string binaryResult = convertDecimalToBinary(decimal);
-    string octalResult = convertBinaryToOctal(binaryResult);
+    string octalResult = convertBinaryToOctalOrHex(binaryResult,"octal");
     string sortingResult;
     if(mode == "low_to_high"){
         sortingResult = sortLowToHigh(octalResult);
@@ -248,7 +299,7 @@ void runBinarySystemConversion(string mode){
     if(mode == "high_to_low"){
         sortingResult = sortHighToLow(octalResult);
     }
-    string binaryResultFromLowToHigh = convertOctalToBinary(sortingResult);
+    string binaryResultFromLowToHigh = convertOctalOrHexToBinary(sortingResult,"octal");
     int decimalResult = convertBinaryToDecimal(binaryResultFromLowToHigh);
     //step 4: display binaryResult;
     cout << "Binary Result " << binaryResult << endl;
@@ -261,6 +312,7 @@ void runBinarySystemConversion(string mode){
 void runBinaryConversionHighToLow(){
     string title = "Binary Conversion High To Low";
     cout << "Title: " << title << endl;
+
 }
 void showOptions(){
     cout << "What would you like to do?"<< endl;
@@ -270,6 +322,8 @@ void showOptions(){
     cout << "4: Show Number Array List" << endl;
     cout << "5: Rotate Number Array List to left" << endl;
     cout << "6: Rotate Number Array List to the right" << endl;
+    cout << "7: convert Decimal to Hex" << endl;
+    cout << "8: convert Hex to Decimal" << endl;
     cout << "0: Exit" << endl;
 }
 
@@ -304,6 +358,57 @@ void rotateNumberedArrayListToTheRight(int numberedArrayList[],int arraySize){
     numberedArrayList[0]=temporary;
 }
 
+void runBinaryConversionDecimalToHex(){
+    string title = "Convert Decimal to Hex";
+    cout << title << endl;
+    //step 1: accept user input
+    cout << "Enter your Decimal" << endl;
+    string decimal;
+    cin >> decimal;
+    //step 2: validate user input
+    while(!isValidDecimal(decimal)){
+        cout << "That is not a vaalid decimal. Try again!"<< endl;
+        cin >> decimal;
+    }
+    //step 3: do conversion
+    string binaryResult = convertDecimalToBinary(decimal);
+    string hexResult = convertBinaryToOctalOrHex(binaryResult,"hex");
+    //step 4: output the result
+    cout << "Binary Result " << binaryResult << endl;
+    cout << "Hex Result " << hexResult << endl;
+}
+
+bool isValidHex(string givenHex){
+    //step 1: loop through the givenHex
+    for(int i=0;i<givenHex.length();i++){
+        //step 2: getIntegerEquivalent
+        int integerResult = getIntegerEquivalent(givenHex[i]);
+        //step 3: make sure integerResult is not greater than 15
+        if(integerResult > 15){
+            return false;
+        }
+    }
+    //step 2: return true if all goods
+    return true;
+}
+void runBinaryConversionHexToDecimal(){
+    string title = "Convert Hex to Decimal";
+    cout << title << endl;
+    cout << "Enter your hex" << endl;
+    string hex;
+    cin >> hex;
+    //step 2: validate hex
+    while(!isValidHex(hex)){
+        cout << "That is not a valid Hex. Try again!" << endl;
+        cin >> hex;
+    }
+    //step 3: do conversions
+    string binaryResult = convertOctalOrHexToBinary(hex,"hex");
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    //step 4: display result
+    cout << "Binary Result: " << binaryResult << endl;
+    cout << "Decimal Result: " << decimalResult << endl;
+}
 void acceptUserOption(){
     char option;
     do{
@@ -359,6 +464,20 @@ void acceptUserOption(){
             showDivider();
             rotateNumberedArrayListToTheRight(numberedArrayList,arraySize);
             showCurrentNumberedArrayList(numberedArrayList,arraySize);
+            showDivider();
+            showOptions();
+            break;
+        case '7':
+            clearScreen();
+            showDivider();
+            runBinaryConversionDecimalToHex();
+            showDivider();
+            showOptions();
+            break;
+        case '8':
+            clearScreen();
+            showDivider();
+            runBinaryConversionHexToDecimal();
             showDivider();
             showOptions();
             break;
