@@ -237,3 +237,404 @@ BINARY : 0001101111001101
 OCTAL : 015715
 HEX : 1bcd
 ==================================
+===================================
+Palindrome From File
+madammadammadammadamPalindrome-------------------------------
+cloudcloudcloudduolcNot Palindrome-------------------------------
+radarradarradarradarPalindrome-------------------------------
+jumpjumpjumppmujNot Palindrome-------------------------------
+levellevellevellevelPalindrome-------------------------------
+tigertigertigerregitNot Palindrome-------------------------------
+deeddeeddeeddeedPalindrome-------------------------------
+phonephonephoneenohpNot Palindrome-------------------------------
+civiccivicciviccivicPalindrome-------------------------------
+spacespacespaceecapsNot Palindrome-------------------------------
+referreferreferreferPalindrome-------------------------------
+bookbookbookkoobNot Palindrome-------------------------------
+poppoppoppopPalindrome-------------------------------
+musicmusicmusiccisumNot Palindrome-------------------------------
+noonnoonnoonnoonPalindrome-------------------------------
+riverriverriverrevirNot Palindrome-------------------------------
+kayakkayakkayakkayakPalindrome-------------------------------
+computercomputercomputerretupmocNot Palindrome-------------------------------
+rotorrotorrotorrotorPalindrome-------------------------------
+gardengardengardennedragNot Palindrome-------------------------------
+===================================
+Palindrome From File
+madam
+madam
+madam
+madam
+Palindrome
+-------------------------------
+cloud
+cloud
+cloud
+duolc
+Not Palindrome
+-------------------------------
+radar
+radar
+radar
+radar
+Palindrome
+-------------------------------
+jump
+jump
+jump
+pmuj
+Not Palindrome
+-------------------------------
+level
+level
+level
+level
+Palindrome
+-------------------------------
+tiger
+tiger
+tiger
+regit
+Not Palindrome
+-------------------------------
+deed
+deed
+deed
+deed
+Palindrome
+-------------------------------
+phone
+phone
+phone
+enohp
+Not Palindrome
+-------------------------------
+civic
+civic
+civic
+civic
+Palindrome
+-------------------------------
+space
+space
+space
+ecaps
+Not Palindrome
+-------------------------------
+refer
+refer
+refer
+refer
+Palindrome
+-------------------------------
+book
+book
+book
+koob
+Not Palindrome
+-------------------------------
+pop
+pop
+pop
+pop
+Palindrome
+-------------------------------
+music
+music
+music
+cisum
+Not Palindrome
+-------------------------------
+noon
+noon
+noon
+noon
+Palindrome
+-------------------------------
+river
+river
+river
+revir
+Not Palindrome
+-------------------------------
+kayak
+kayak
+kayak
+kayak
+Palindrome
+-------------------------------
+computer
+computer
+computer
+retupmoc
+Not Palindrome
+-------------------------------
+rotor
+rotor
+rotor
+rotor
+Palindrome
+-------------------------------
+garden
+garden
+garden
+nedrag
+Not Palindrome
+-------------------------------
+================================
+I am Rameli(2)
+IamRameli
+iamrameli
+ilemarmai
+Not Palindrome
+================================
+Palindrome From User Input 
+I am Rameli(2)
+IamRameli
+iamrameli
+ilemarmai
+Not Palindrome
+===================================
+Palindrome From File
+madam
+madam
+madam
+madam
+Palindrome
+-------------------------------
+cloud
+cloud
+cloud
+duolc
+Not Palindrome
+-------------------------------
+radar
+radar
+radar
+radar
+Palindrome
+-------------------------------
+jump
+jump
+jump
+pmuj
+Not Palindrome
+-------------------------------
+level
+level
+level
+level
+Palindrome
+-------------------------------
+tiger
+tiger
+tiger
+regit
+Not Palindrome
+-------------------------------
+deed
+deed
+deed
+deed
+Palindrome
+-------------------------------
+phone
+phone
+phone
+enohp
+Not Palindrome
+-------------------------------
+civic
+civic
+civic
+civic
+Palindrome
+-------------------------------
+space
+space
+space
+ecaps
+Not Palindrome
+-------------------------------
+refer
+refer
+refer
+refer
+Palindrome
+-------------------------------
+book
+book
+book
+koob
+Not Palindrome
+-------------------------------
+pop
+pop
+pop
+pop
+Palindrome
+-------------------------------
+music
+music
+music
+cisum
+Not Palindrome
+-------------------------------
+noon
+noon
+noon
+noon
+Palindrome
+-------------------------------
+river
+river
+river
+revir
+Not Palindrome
+-------------------------------
+kayak
+kayak
+kayak
+kayak
+Palindrome
+-------------------------------
+computer
+computer
+computer
+retupmoc
+Not Palindrome
+-------------------------------
+rotor
+rotor
+rotor
+rotor
+Palindrome
+-------------------------------
+garden
+garden
+garden
+nedrag
+Not Palindrome
+-------------------------------
+===================================
+Palindrome From File
+You entered: madam
+Clenead text: madam
+Lower cased text: madam
+Reversed text: madam
+Palindrome
+-------------------------------
+You entered: cloud
+Clenead text: cloud
+Lower cased text: cloud
+Reversed text: duolc
+Not Palindrome
+-------------------------------
+You entered: radar
+Clenead text: radar
+Lower cased text: radar
+Reversed text: radar
+Palindrome
+-------------------------------
+You entered: jump
+Clenead text: jump
+Lower cased text: jump
+Reversed text: pmuj
+Not Palindrome
+-------------------------------
+You entered: level
+Clenead text: level
+Lower cased text: level
+Reversed text: level
+Palindrome
+-------------------------------
+You entered: tiger
+Clenead text: tiger
+Lower cased text: tiger
+Reversed text: regit
+Not Palindrome
+-------------------------------
+You entered: deed
+Clenead text: deed
+Lower cased text: deed
+Reversed text: deed
+Palindrome
+-------------------------------
+You entered: phone
+Clenead text: phone
+Lower cased text: phone
+Reversed text: enohp
+Not Palindrome
+-------------------------------
+You entered: civic
+Clenead text: civic
+Lower cased text: civic
+Reversed text: civic
+Palindrome
+-------------------------------
+You entered: space
+Clenead text: space
+Lower cased text: space
+Reversed text: ecaps
+Not Palindrome
+-------------------------------
+You entered: refer
+Clenead text: refer
+Lower cased text: refer
+Reversed text: refer
+Palindrome
+-------------------------------
+You entered: book
+Clenead text: book
+Lower cased text: book
+Reversed text: koob
+Not Palindrome
+-------------------------------
+You entered: pop
+Clenead text: pop
+Lower cased text: pop
+Reversed text: pop
+Palindrome
+-------------------------------
+You entered: music
+Clenead text: music
+Lower cased text: music
+Reversed text: cisum
+Not Palindrome
+-------------------------------
+You entered: noon
+Clenead text: noon
+Lower cased text: noon
+Reversed text: noon
+Palindrome
+-------------------------------
+You entered: river
+Clenead text: river
+Lower cased text: river
+Reversed text: revir
+Not Palindrome
+-------------------------------
+You entered: kayak
+Clenead text: kayak
+Lower cased text: kayak
+Reversed text: kayak
+Palindrome
+-------------------------------
+You entered: computer
+Clenead text: computer
+Lower cased text: computer
+Reversed text: retupmoc
+Not Palindrome
+-------------------------------
+You entered: rotor
+Clenead text: rotor
+Lower cased text: rotor
+Reversed text: rotor
+Palindrome
+-------------------------------
+You entered: garden
+Clenead text: garden
+Lower cased text: garden
+Reversed text: nedrag
+Not Palindrome
+-------------------------------
