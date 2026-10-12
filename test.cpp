@@ -121,6 +121,47 @@ bool isValidOctal(string givenOctal){
     return true;
 }
 
+int getDecimalEquivalent(char givenChar){
+    int result = 0;
+    switch(givenChar){
+    case 'A':result = 10;break;
+    case 'B':result = 11;break;
+    case 'C':result = 12;break;
+    case 'D':result = 13;break;
+    case 'E':result = 14;break;
+    case 'F':result = 15;break;
+    default: result = givenChar - '0';break;
+    }
+    return result;
+}
+string convertOctalOrHexToBinary(string given, int limit){
+    string result = "";
+    for(int i=0;i<given.length();i++){
+        int decimal = getDecimalEquivalent(given[i]);
+        string binary = convertDecimalToBinary(decimal);
+        if(binary.length()!=limit){
+            int neededZeroes = limit - binary.length();
+            string temporary = "";
+            for(int j = 1;j<=neededZeroes;j++){
+                temporary+='0';
+            }
+            temporary+=binary;
+            binary = temporary;
+        }
+        result += binary;
+    }
+    return result;
+}
+
+bool isValidHex(string givenHex){
+    for(int i=0;i<givenHex.length();i++){
+        int decimal = getDecimalEquivalent(givenHex[i]);
+        if(decimal > 15){
+            return false;
+        }
+    }
+    return true;
+}
 void runDecimalConversion(){
     cout << "DECIMAL CONVERNSION " << endl;
     string decimal;
@@ -164,10 +205,31 @@ void runOctalConversion(){
         cout << "That is not a valid octal " << endl;
         cin >> octal;
     }
-    int binaryResult = convertOctalOrHexToBinary(octal,3);
+    string binaryResult = convertOctalOrHexToBinary(octal,3);
+    string hexResult = convertBinaryToOctalorHex(binaryResult,4);
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    cout << "YOU PROVIDED: " << octal << endl;
+    cout << "BINARY RESULT: " << binaryResult << endl;
+    cout << "HEX RESULT: " << hexResult << endl;
+    cout << "DECIMAL RESULT: " << decimalResult << endl;
+
 }
 void runHexConversion(){
     cout << "HEX CONVERSION " << endl;
+    string hex;
+    cout << "Enter your hex" << endl;
+    cin >> hex;
+    while(!isValidHex(hex)){
+        cout << "That is not a valid hex" << endl;
+        cin >> hex;
+    }
+    string binaryResult = convertOctalOrHexToBinary(hex,4);
+    string octalResult = convertBinaryToOctalorHex(binaryResult,3);
+    int decimalResult = convertBinaryToDecimal(binaryResult);
+    cout << "YOU PROVIDED: " << hex << endl;
+    cout << "BINARY RESULT: " << binaryResult << endl;
+    cout << "OCTAL RESULT: " << octalResult << endl;
+    cout << "DECIMAL RESULT: " << decimalResult << endl;
 }
 void showOptions(){
     cout << "Select an Option " << endl;
